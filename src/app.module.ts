@@ -1,13 +1,16 @@
 import { Module } from '@nestjs/common';
-import { UsersController } from '@controllers/index';
-import { UsersService } from '@services/index';
+import { EventsService, UsersService, AuthService } from '@services/index';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthController } from '@controllers/auth.controller';
-import { AuthService } from '@services/auth.service';
+import { JwtStrategy } from './strategys/jwt.strategy';
+import {
+  EventsController,
+  AuthController,
+  UsersController,
+} from '@controllers/index';
 
 @Module({
   imports: [JwtModule.register({ secret: process.env.SECRET })],
-  controllers: [UsersController, AuthController],
-  providers: [UsersService, AuthService],
+  controllers: [UsersController, AuthController, EventsController],
+  providers: [UsersService, AuthService, JwtStrategy, EventsService],
 })
 export class AppModule {}

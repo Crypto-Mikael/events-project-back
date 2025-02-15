@@ -1,10 +1,4 @@
-import {
-  createCipheriv,
-  randomBytes,
-  createDecipheriv,
-  scryptSync,
-  timingSafeEqual,
-} from 'crypto';
+import { randomBytes, scryptSync, timingSafeEqual } from 'crypto';
 export const catchError = async <T>(
   promise: Promise<T>,
 ): Promise<[undefined, T] | [Error & { code?: string }]> => {

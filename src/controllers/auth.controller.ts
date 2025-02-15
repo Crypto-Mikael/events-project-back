@@ -16,11 +16,7 @@ export class AuthController {
   @HttpCode(HttpStatus.ACCEPTED)
   async POST(@Body() payload: { email: string; password: string }) {
     if (!payload)
-      throw new HttpException('Payload not sended', HttpStatus.FORBIDDEN);
-    if (!payload.email)
-      throw new HttpException('Email not sended', HttpStatus.FORBIDDEN);
-    if (!payload.password)
-      throw new HttpException('password not sended', HttpStatus.FORBIDDEN);
+      throw new HttpException('Payload not sended', HttpStatus.BAD_REQUEST);
     return await this.authService.post(payload);
   }
 }
