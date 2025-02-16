@@ -12,7 +12,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from '@services/index';
 import { users } from '@models/users';
 
-@Controller('users')
+@Controller('api/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

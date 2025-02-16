@@ -16,13 +16,13 @@ import { AuthGuard } from '@nestjs/passport';
 import { EventsService } from '@services/index';
 import { events } from '@models/index';
 
-@Controller('events')
+@Controller('api/events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
-  @HttpCode(HttpStatus.FOUND)
+  @HttpCode(HttpStatus.OK)
   async GET() {
     return await this.eventsService.get();
   }

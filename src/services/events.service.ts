@@ -9,16 +9,18 @@ import { eq } from 'drizzle-orm';
 export class EventsService {
   constructor(public jwtService: JwtService) {}
   async get() {
-    const [err, events] = await catchError(db.query.events.findMany());
-    if (err) throw Error(err.message);
-    if (events) return events;
+    const [err, events_] = await catchError(db.query.events.findMany());
+    if (err) throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    if (events_) return events_;
     return [];
   }
 
   async post(payload: Omit<typeof events.$inferSelect, 'id'>) {
-    const [err, event] = await catchError(db.insert(events).values(payload));
+    const [err, event] = await catchError(
+      db.insert(events).values(payload).returning({ insertedId: events.id }),
+    );
     if (err) throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
-    if (event) return;
+    if (event) return event[0].insertedId;
   }
 
   async put(payload: typeof events.$inferSelect) {
